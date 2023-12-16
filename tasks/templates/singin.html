@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>singin</h1>
+
+{{error}}
+
+    <!--recibo el formulario que se envia desde el views-->
+    <form action="/singin/" method="POST">
+        {% csrf_token %}
+        
+        {{form.as_p}}
+        <button>
+            Singin
+        </button>
+    </form>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+     <h1>Tasks</h1>
+
+     <ul>
+          {% for est in tasks %}
+               <li>
+                    <h1> {{est.cedula}}</h1>
+                    <p> {{est.nombre}}</p>
+                    <p> {{est.apellido}}</p>
+                    <p> {{est.user.username}}</p>
+               </li>
+               
+          {% endfor %}
+     </ul>
+   
+{% endblock %}
