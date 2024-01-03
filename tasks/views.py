@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,get_object_or_404
 
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
@@ -30,15 +30,15 @@ def singup(request):
                 return redirect('tasks')
 
             except IntegrityError:
-                 return render(request,'singup.html',{
+                return render(request,'singup.html',{
                     'form' : UserCreationForm,
                     "error": 'User name already exists'
-                 })
+                })
         return render(request,'singup.html',{
                     'form' : UserCreationForm,
                     "error": 'Password do not match'
-                 })
-      
+                    
+                    })
 def tasks(request):
     estudiante=Estudiante.objects.filter(user=request.user)
     print(estudiante)
@@ -86,3 +86,20 @@ def crear_persona (request):
                 'form':TaskForm,
                 'error':'Por favor ingrese datos validos'
             })
+
+def crearpersona_detalle(request,task_id):
+    if request.method == 'GET':
+        task= get_object_or_404(Estudiante,pk=task_id, user=request.user)
+        form = TaskForm(instance=task)
+        print(task_id)
+        return render(request,'crear_personadetalles.html',{'task':task,'form'  :form})
+    else:
+        try:
+            task= get_object_or_404(Estudiante,pk=task_id, user=request.user)
+            form = TaskForm(request.POST,instance=task)
+            form.save()
+            return redirect('tasks')
+        except ValueError:
+            return render(request,'crear_personadetalles.html',{'task':task,'form':form,
+            'error':'Por favor ingrese datos validos'})  
+
