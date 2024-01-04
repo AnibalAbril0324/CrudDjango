@@ -6,15 +6,15 @@
      <ul>
           {% for est in tasks %}
                <li>
-                   <a href="{% url 'crearpersona_detalle' est.id %}">
+                    <a href="{% url 'crearpersona_detalle' est.id %}">
                          <h1> {{est.cedula}}</h1>
                          <p> {{est.nombre}}</p>
                          <p> {{est.apellido}}</p>
                          <p> {{est.user.username}}</p>
-                   </a>
+                    </a>
                </li>
                
           {% endfor %}
      </ul>
-   
+     
 {% endblock %}

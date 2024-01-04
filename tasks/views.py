@@ -7,6 +7,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.db import IntegrityError #se importa para un control de error especifico
 from .forms import TaskForm
 from .models import Estudiante
+from django.contrib.auth.decorators import login_required  # Este es un decorador muy útil en Django que asegura que una vista solo sea accesible para usuarios autenticados.
 
 def home(request):
     return render(request,'home.html')     
@@ -39,12 +40,15 @@ def singup(request):
                     "error": 'Password do not match'
                     
                     })
+                    
+@login_required
 def tasks(request):
     estudiante=Estudiante.objects.filter(user=request.user)
     print(estudiante)
     # task es el areglo que envio a la tasks.html 
     return render(request, 'tasks.html',{'tasks':estudiante})
 
+@login_required
 def signout(request):
     logout(request)
     return redirect('home')
@@ -66,7 +70,8 @@ def singin(request):
         else:
             login(request,user)
             return redirect('tasks')
-        
+
+@login_required        
 def crear_persona (request):
 
     if request.method == 'GET':
@@ -87,6 +92,7 @@ def crear_persona (request):
                 'error':'Por favor ingrese datos validos'
             })
 
+@login_required
 def crearpersona_detalle(request,task_id):
     if request.method == 'GET':
         task= get_object_or_404(Estudiante,pk=task_id, user=request.user)
@@ -103,3 +109,9 @@ def crearpersona_detalle(request,task_id):
             return render(request,'crear_personadetalles.html',{'task':task,'form':form,
             'error':'Por favor ingrese datos validos'})  
 
+@login_required
+def delete_persona(request, task_id):
+    task= get_object_or_404(Estudiante,pk=task_id, user=request.user)
+    if request.method == 'POST':
+        task.delete()
+        return redirect('tasks')
