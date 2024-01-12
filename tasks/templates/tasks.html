@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+     <main class="container">
+          <div class="row">
+               <div class="col-md-6 offset-md-3">
+                    <h1>Tasks</h1>
+
+                    <ul class="list-group">
+                         {% for est in tasks %}
+                              <a  class="list-group-item" href="{% url 'crearpersona_detalle' est.id %}">
+                                   <h1> {{est.cedula}}</h1>
+                                   <p> {{est.nombre}}</p>
+                                   <p> {{est.apellido}}</p>
+                                   <p> {{est.user.username}}</p>
+                              </a>
+                              
+                         {% endfor %}
+                    </ul>
+               </div>
+          </div>
+     </main>
+     
+{% endblock %}
