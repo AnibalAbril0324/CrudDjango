@@ -2,23 +2,31 @@
 
 {% block content %}
     
-    <h1>{{task.nombre}} editar</h1>
+    <main class="container">
+        <div class="row">
+            <div class="col-md-4 offset-md-4 mt-5">
+                <h1 class="text-secondary" >{{task.nombre}} editar</h1>
 
-    {{error}}
-
-    <form method="POST">
-        {% csrf_token %}
-        {{form.as_p}}
-        <button>
-            Actualizar
-        </button>                        
-    </form>
-
-    <form action="{% url 'delete_persona' task.id %}" method="POST">
-        {% csrf_token %}
-        <button>
-            eliminar
-        </button>
-    </form>
+                {{error}}
+            
+                <div class="mt-5 ">
+                    <form method="POST">
+                        {% csrf_token %}
+                        {{form.as_p}}
+                        <button class="btn btn-primary">
+                            Actualizar
+                        </button>                        
+                    </form>
+                
+                    <form action="{% url 'delete_persona' task.id %}" method="POST">
+                        {% csrf_token %}
+                        <button class="btn btn-danger">
+                            eliminar
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
 
 {% endblock %}

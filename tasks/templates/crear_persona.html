@@ -1,18 +1,28 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Crear Persona</h1>
+    
+    <main>
+        <div class="row">
+            <div class="col-md-4 offset-md-4 mt-5"> 
+                <form action="/tasks/crear_persona/" method="POST" class="card card-body">
+                    <h1>Crear Persona</h1>
 
-    {{error}}
-    <form action="/tasks/crear_persona/" method="POST">
-        {% csrf_token %} 
+                    {{error}}
 
-        {{form}}
+                    {% csrf_token %} 
 
-        <button>
-            Save
-        </button>
+                    {{form}}
 
-    </form>
+                    <br>
+
+                    <button class="btn btn-primary">
+                        Save
+                    </button>
+
+                </form>
+            </div>
+        </div>
+    </main>
 
 {% endblock %}
